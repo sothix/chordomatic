@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>Get Coordinates</title>
+    <style>
+        .Outer {
+            display: flex;
+            flex-direction: column;
+            /*border: solid 1px Grey;*/
+        }
+    </style>
+    <script src="js/jquery-2.2.3.min.js"></script>
+    <script src="js/get_coordinates.js"></script>
+
+</head>
+<body>
+<div class="Outer">
+    <div id="mouse_position">Mouse position</div>
+    <div>---</div>
+    <div>
+        <canvas id="myCanvas" style="width:600px;height:600px">
+            <!--Your Canvas-->
+        </canvas>
+    </div>
+    <div>---</div>
+    <div id="array_log">---</div>
+    <div id="pairs_log">---</div>
+    <div id="x_log">---</div>
+    <div id="y_log">---</div>
+    <div>---</div>
+    <div id="rev_array_log">---</div>
+    <div id="rev_pairs_log">---</div>
+    <div id="rev_x_log">---</div>
+    <div id="rev_y_log">---</div>
+    <div>---</div>
+    <div id="general_info">[Left Click] where you would like the next point<br>
+        [Arrow keys] to adjust the last point<br>
+        [Delete] to remove the last point<br>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bob</title>
+    <link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/starter-template.css" rel="stylesheet">
+    <script src="js/jquery-2.2.3.min.js"></script>
+    <script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="mouse_position" style="display: none;">Mouse position: 0,0</div>
+<div style="margin: 30px;">
+    <div>
+        <h1>Cord-o-matic</h1>
+        <p>The automatic solution for manual chording</p>
+    </div>
+    <canvas id="myCanvas" width="700" height="200" ></canvas>
+    <div id="functions0">
+    </div>
+    <div id="functions" style="display: flex;margin-top:10px">
+        <input id="counter_field"  value="1" type="text" style="width: 50px;text-align: center;" readonly>
+        <a id="counter"  value="22" href="#" class="button">Counter</a>
+        <input id="custom_text" value="Cus" type="text" style="width: 50px;text-align: center;">
+        <a id="custom"  value="Cus" href="#" class="button disabled">Custom</a>
+        <a id="b1" value="1" href="#" class="button disabled">1</a>
+        <a id="b2" value="2" href="#" class="button disabled">2</a>
+        <a id="b3" value="3" href="#" class="button disabled">3</a>
+        <a id="b4" value="4" href="#" class="button disabled">4</a>
+        <a id="thumb" value="T" href="#" class="button disabled">T</a>
+        <a id="x" value="x"  href="#" class="button disabled">X</a>
+    </div>
+    <div id="functions2" style="display: flex;margin-top:10px">
+        <canvas style="margin-right: 4px;" width="98" height="30" id="canvas_picker"></canvas>
+        <input id="hex" type="text" style="width: 64px;text-align: center;margin-right: 10px" >
+        <a id="bar" value="bar" href="#" class="button disabled">Bar</a>
+        <a id="clear" href="#" class="button">Clear</a>
+        <select id="neck_select" class="form-control" style="font-size: 13px;width:210px;height:30px">
+            <option value="one">One</option>
+            <option value="two">Two</option>
+        </select>
+    </div>
+    <div><h3>Common Chords (In order of awesomeness)</h3></div>
+
+    <div id="chords" style="display: flex;flex-direction: row; margin:10px">
+        <div style="margin-right: 30px;min-width: 100px;">
+            <a href='#["G6"],["FF9400"],[5,2,"1"],[6,3,"2"],[1,3,"3"]'>1. G - G Major "Folk"</a><br>
+            <a href='#["G6"],["FF9400"],[3,2,"1"],[1,2,"2"],[2,3,"3"],[6,2,"x"],[5,2,"x"]'>2. D - D Major</a><br>
+            <a href='#["G6"],["FF9400"],[2,1,"1"],[4,3,"2"],[5,4,"3"],[6,1,"x"]'>3. C - C Major</a><br><br>
+            <a href='#["G6"],["FF9400"],[5,2,"1"],[4,2,"2"]'>4. Em - E minor</a><br>
+            <a href='#["G6"],["FF9400"],[2,1,"1"],[4,2,"2"],[3,2,"3"],[6,1,"x"]'>5. Am - A minor</a><br>
+            <a href='#["G6"],["FF9400"],[5,2,"1"],[6,3,"2"],[2,3,"3"],[1,3,"4"]'>6. G - G Major "Rock"</a><br><br>
+            <a href='#["G6"],["FF9400"],[3,2,"1"],[4,2,"2"],[2,2,"3"],[6,2,"x"]'>7. A - A Major</a><br>
+            <a href='#["G6"],["FF9400"],[3,1,"1"],[5,2,"2"],[4,2,"3"]'>8. E - E Major</a><br><br>
+        </div>
+        <div style="margin-right: 30px;min-width: 100px;">
+            <a href='#["G6"],["FF9400"],[1,1,"1"],[3,2,"2"],[2,3,"3"],[6,1,"x"],[5,1,"x"]'>9. Dm - D Minor</a><br>
+            <a href='#["G6"],["FF9400"],[5,2,"1"],[2,3,"2"],[4,4,"3"],[3,4,"4"],[6,2,"x"],[1,2,"x"]'>10. Bm - B Minor</a><br>
+            <a href='#["G6"],["FF9400"],[1,1,"x"],[6,1,"x"],[5,1,"x"],[2,1,"1"],[3,2,"2"],[4,3,"3"]'>11. F - F Major</a><br><br>
+            <a href='#["G6"],["FF9400"],[2,1,"1"],[3,2,"2"],[4,3,"3"],[6,1,"x"],[5,1,"x"]'>12. Fmaj7 - F Major 7th</a><br>
+            <a href='#["G6"],["FF9400"],[2,1,"1"],[3,2,"2"],[4,3,"3"],[6,1,"x"],[5,1,"x"],[1,3,"4"]'>13. Fadd9</a><br><br>
+            <a href='#["G6"],["FF9400"],[2,1,"1"],[3,2,"2"],[1,2,"3"],[6,1,"x"],[5,1,"x"]'>14. D7 - D Dominant 7th</a><br>
+            <a href='#["G6"],["FF9400"],[3,1,"1"],[5,2,"2"]'>15. E7 - E Dominant 7th</a><br>
+            <a href='#["G6"],["FF9400"],[4,2,"1"],[2,2,"3"]'>16. A7 - A Dominant 7th</a><br><br>
+        </div>
+        <div style="margin-right: 30px;min-width: 100px;">
+            <a href='#["G6"],["FF9400"],[5,2,"1"],[4,2,"2"],[3,2,"3"]'>17. Esus4</a><br>
+            <a href='#["G6"],["FF9400"],[4,2,"1"],[3,2,"2"],[6,2,"x"]'>18. Asus2</a><br>
+            <a href='#["G6"],["FF9400"],[4,2,"1"],[3,2,"2"],[2,3,"3"],[6,2,"x"]'>19. Asus4</a><br>
+            <a href='#["G6"],["FF9400"],[3,2,"1"],[2,3,"3"],[6,2,"x"],[5,2,"x"]'>20. Dsus2</a><br>
+            <a href='#["G6"],["FF9400"],[3,2,"1"],[2,3,"3"],[6,2,"x"],[5,2,"x"],[1,3,"4"]'>21. Dsus4</a><br><br>
+            <a href='#["G6"],["FF9400"],[1,1,"1"],[5,2,"2"],[6,3,"3"]'>22. G7</a><br>
+            <a href='#["G6"],["FF9400"],[2,1,"1"],[4,2,"2"],[5,3,"3"],[3,3,"4"],[6,1,"x"]'>23. C7</a><br>
+            <a href='#["G6"],["FF9400"],[4,1,"1"],[5,2,"2"],[3,2,"3"],[1,2,"4"],[6,1,"x"]'>24. B7</a><br><br>
+        </div>
+        <div style="margin-right: 30px;min-width: 100px;">
+            <a href='#["G6"],["FF9400"],[4,2,"2"],[5,3,"3"],[6,1,"x"]'>25. Cmaj7</a><br>
+            <a href='#["G6"],["FF9400"],[1,2,"1"],[5,2,"2"],[6,3,"3"]'>26. Gmaj7</a><br>
+            <a href='#["G6"],["FF9400"],[3,1,"1"],[4,2,"2"],[2,2,"3"],[6,1,"x"]'>27. Amaj7</a><br>
+            <a href='#["G6"],["FF9400"],[3,1,"1"],[4,1,"2"],[5,2,"3"]'>28. Emaj7</a><br>
+            <a href='#["G6"],["FF9400"],[3,1,2,"1"],[6,2,"x"],[5,2,"x"]'>29. Dmaj7</a><br><br>
+            <a href='#["G6"],["FF9400"],[2,1,"1"],[4,2,"2"],[6,1,"x"]'>30. Amin7</a><br>
+            <a href='#["G6"],["FF9400"],[5,2,"1"],[4,2,"2"],[2,3,"3"]'>31. Emin7</a><br>
+            <a href='#["G6"],["FF9400"],[2,1,1,"1"],[3,2,"2"],[6,1,"x"],[5,1,"x"]'>32. Dmin7</a><br>
+        </div>
+    </div>
+    <div style="margin-top: 10px">
+        <h3>Instructions</h3>
+        <p>
+            Try [Clicking] and [Shift Clicking] the rest you can work out by playing with it. All changes will be reflected in the address bar which you can copy and send to your enemies.
+            You can resize in your browser by pressing [Ctrl +] [Ctrl -] and [Ctrl 0]<br>
+        </p>
+    </div>
+    </div>
+
+    <div id="log"></div>
+</div>
+
+<script>
+    var database = [
+        {
+            id: "G6",
+            name:"6 String Guitar",
+            filename:"images/guitar-neck2.jpg",
+            frets:[1165,1070,989,912,838,767,700,635,575,517,461,409,359,311,266,223,183,144,107,72,39,0],
+            strings:[[[0,153],[1165,138]],[[0,127],[1165,122]],[[0,99],[1165,104]],[[0,70],[1165,87]],[[0,44],[1165,68]],[[0,15],[1165,49]]],
+            top_of_neck:[[0,0],[1165,39]],
+            fret_text_line:[[0,0],[0,0]], //will be filled when we add the padding
+            middle_loc: [],
+            lookup_middle_loc: {}
+        },
+        {
+            id: "G7",
+            name:"7 String Guitar",
+            filename:"images/guitar-neck-7string2.jpg",
+            frets:[1113,1024,945,870,799,732,670,612,556,504,455,409,366,324,286,250,215,183,152,124,96,71,46,24,2],
+            strings: [[[0,147],[1111,130]],[[0,125],[1111,114]],[[0,103],[1111,98]],[[0,80],[1111,82]],[[0,59],[1111,66]],[[0,37],[1111,50]],[[0,15],[1111,34]]],
+            top_of_neck:[[0,4],[1111,26]],
+            fret_text_line:[[0,0],[0,0]], //will be filled when we add the padding
+            middle_loc: [],
+            lookup_middle_loc: {}
+        },
+        {
+            id: "U4",
+            name:"Ukulele 4 String",
+            filename:"images/ukulele-4string.jpg",
+            frets:[971,882,800,724,651,582,517,456,397,344,293,244,197,155,114,75,38,4],
+            strings: [[[0,181],[985,156]],[[0,126],[985,114]],[[0,70],[985,72]],[[0,16],[985,30]]],
+            top_of_neck: [[0,3],[985,18]],
+            fret_text_line:[[0,0],[0,0]], //will be filled when we add the padding
+            middle_loc: [],
+            lookup_middle_loc: {}
+        },
+        {
+            id: "B4",
+            name:"Bass Guitar",
+            filename:"images/base-guitar2.jpg",
+            frets:[1178,1086,1004,927,853,784,718,657,598,543,491,442,395,352,310,271,235,200,167,136,107,79,54,29,6],
+            strings: [[[0,103],[1185,88]],[[0,72],[1185,69]],[[0,41],[1185,50]],[[0,10],[1185,30]]],
+            top_of_neck:  [[0,2],[1185,22]],
+            fret_text_line:[[0,0],[0,0]], //will be filled when we add the padding
+            middle_loc: [],
+            lookup_middle_loc: {}
+        }
+    ];
+
+    var guitar = database[0];
+    var debug = false;
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    var radius = 11;
+    var frets = [1165,1071,989,912,839,768,701,637,576,518,463,410,360,312,267,225,184,145,108,73,40,0];
+    //you can reverse the strings below if you wish - string 0 is just a place holder
+    var strings = [[[0,39],[1165,72]],[[0,67],[1165,92]],[[0,94],[1165,110]],[[0,122],[1165,128]],[[0,150],[1165,145]],[[0,177],[1165,162]]];
+    //    var strings = [[[0,177],[1165,162]], [[0,150],[1165,145]],[[0,122],[1165,128]],[[0,94],[1165,110]],[[0,67],[1165,92]],[[0,39],[1165,72]]];
+    var fret_text_line = [[0,10],[1165,43]];
+    var default_colour = "#ff9400";
+    var chord_array = [];
+    var last_clicked = [0,0];
+    var last_value = 1;
+
+    //Debug
+
+    if (debug) {
+        $("#mouse_position").show();
+    }
+
+    //Colour Picker
+
+    var canvas2 = document.getElementById('canvas_picker').getContext('2d');
+    // create an image object and get it’s source
+    var img_colour = new Image();
+    img_colour.src = 'images/rainbow.gif';
+    img_colour.onload = function() {    // copy the image to the canvas
+        canvas2.drawImage(img_colour,0,0);
+    };
+
+    function rgbToHex(R,G,B) {return toHex(R)+toHex(G)+toHex(B)}
+    function toHex(n) {
+        n = parseInt(n,10);
+        if (isNaN(n)) return "00";
+        n = Math.max(0,Math.min(n,255));
+        return "0123456789ABCDEF".charAt((n-n%16)/16)  + "0123456789ABCDEF".charAt(n%16);
+    }
+
+    $('#canvas_picker').click(function(event){
+        // getting user coordinates
+        var x = event.pageX - this.offsetLeft;
+        var y = event.pageY - this.offsetTop;
+        // getting image data and RGB values
+        var img_data = canvas2.getImageData(x, y, 1, 1).data;
+        var R = img_data[0];
+        var G = img_data[1];
+        var B = img_data[2];
+        //var rgb = R + ',' + G + ',' + B;
+        // convert RGB to HEX
+        var hex = rgbToHex(R,G,B);
+        // making the color the value of the input
+        //$('#rgb input').val(rgb);
+        $('#hex').val('#' + hex);
+        //if the last element is also a colour forget the previous one.
+        var str = chord_array[chord_array.length - 1];
+        var regx = /#(?:[0-9a-fA-F]{3}){1,2}/i;
+        var found = str.match(regx);
+        if (found) {
+            chord_array.pop();
+        }
+        chord_array.push('["#' + hex + "\"]");
+        draw_this_chord(chord_array.toString());//draw chord from memory
+    });
+
+    ///////////////////////
+    //Events
+    //////////////////////
+
+    function getMousePos(canvas, event) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+            x: event.pageX - rect.left,
+            y: event.pageY - rect.top
+        };
+    }
+
+    $( "#myCanvas" ).mousemove(function( event ) {
+        var mousePos = getMousePos(canvas, event);
+        var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+        $( "#mouse_position" ).html(message);
+    }).click(function( event ) {
+        var mousePos = getMousePos(canvas, event);
+        var button = $("#functions").find("a").not(".disabled");
+        var value = button.attr("value");
+        var id = button.attr("id");
+        var bar = !$("#bar").hasClass("disabled");
+        if ((event.shiftKey) || (bar)) {
+            var new_click = find_closest_point([mousePos.x,mousePos.y]);
+            chord_array.pop();
+            chord_array.push("["+ new_click[0]+"," + last_clicked[0] +","+ last_clicked[1]+",\""+ last_value +"\"]");
+            draw_this_chord(chord_array.toString());//draw chord from memory
+        } else {
+
+            switch (id) {
+                case "counter":
+                    var field = $("#counter_field");
+                    value = +field.val(); //convert text to number
+                    field.val(value+1);
+                    break;
+                case "custom":
+                    value = $("#custom_text").val();
+                    break;
+                case "b1":
+                    button.addClass("disabled");
+                    $("#b2").removeClass("disabled");
+                    break;
+                case "b2":
+                    button.addClass("disabled");
+                    $("#b3").removeClass("disabled");
+                    break;
+                case "b3":
+                    button.addClass("disabled");
+                    $("#b4").removeClass("disabled");
+                    break;
+                case "b4":
+                    button.addClass("disabled");
+                    $("#thumb").removeClass("disabled");
+                    break;
+            }
+
+            last_clicked = find_closest_point([mousePos.x,mousePos.y]);
+            last_value = value; //for use in bars
+            chord_array.push("[" + last_clicked[0] +","+ last_clicked[1]+",\""+ value +"\"]");
+            draw_this_chord(chord_array.toString());//draw chord from memory
+        }
+
+    });
+
+    $('#chords').on('click','a', function() {
+        //strip the hash from the anchor
+        draw_this_chord($(this).attr("href").substring(1));
+    });
+
+    $("#bar").click(function() {
+        $(this).toggleClass("disabled");
+    });
+
+    $("#counter_field").click( function() {
+        $("#counter_field").val(1);
+        //$("#counter").val(1);
+    });
+
+    $('#functions').on('click','a', function() {
+        var id = $(this).attr("id");
+        $(this).siblings().addClass("disabled");
+        $(this).removeClass("disabled");
+    });
+
+    $('#functions2').on('click','a', function() {
+        var id = $(this).attr("id");
+
+        switch (id) {
+            case "clear":
+                draw_this_chord('["' + guitar.id + '"],["FF9400"]');
+                $("#counter_field").val(1);
+                $("#counter").removeClass("disabled").siblings().addClass("disabled");
+                break;
+        }
+
+    });
+
+    $('#neck_select').on('change', function() {
+
+        //convert to a javascript object which has the selectedIndex property.
+        guitar = database[$(this)[0].selectedIndex];
+        draw_image();
+        draw_this_chord('["' + guitar.id + '"],["#FF9400"]');
+        $("#counter_field").val(1);
+
+    });
+
+
+    ///////////////////////
+    // Functions
+    //////////////////////
+
+    /**
+     * Draws a rounded rectangle using the current state of the canvas.
+     * If you omit the last three params, it will draw a rectangle
+     * outline with a 5 pixel border radius
+     * {CanvasRenderingContext2D} ctx
+     * {Number} x The top left x coordinate
+     * {Number} y The top left y coordinate
+     * {Number} width The width of the rectangle
+     * {Number} height The height of the rectangle
+     * {Number} radius The corner radius. Defaults to 5;
+     * {Boolean} fill Whether to fill the rectangle. Defaults to false.
+     * {Boolean} stroke Whether to stroke the rectangle. Defaults to true.
+     */
+    function roundRect(ctx, loc, loc2, width, radius, fill, stroke) {
+        if (typeof stroke == "undefined" ) {
+            stroke = true;
+        }
+        if (typeof radius === "undefined") {
+            radius = 5;
+        }
+        if (loc[1] > loc2[1]) {
+            var tmp = loc[1];
+            loc[1] = loc2[1];
+            loc2[1] = tmp;
+        }
+        var x = loc[0]-radius;
+        var y = loc[1]-radius;
+        var x2 = loc2[0]-radius;
+        var y2 = loc2[1]+radius;
+
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+        ctx.lineTo(x2 + width, y2 - radius);
+        ctx.quadraticCurveTo(x2 + width, y2, x2 + width - radius, y2);
+        ctx.lineTo(x2 + radius, y2);
+        ctx.quadraticCurveTo(x2, y2, x, y2 - radius);
+        ctx.lineTo(x, y + radius);
+        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.closePath();
+        if (stroke) {
+            ctx.stroke();
+        }
+        if (fill) {
+            ctx.fill();
+        }
+    }
+
+    function write_number(loc,text,colour) {
+        if (text == null) {text = "???"}
+        if (colour == null) {colour = "white"}
+        context.font = 'bold 10pt Arial';
+        context.fillStyle = colour;
+        context.textAlign="center";
+        context.textBaseline="middle";
+        context.fillText(text, loc[0], loc[1]);
+    }
+
+    function write_x(loc) {
+        context.font = 'bold 35pt Calibri';
+        context.lineWidth = 3;
+        context.textAlign="center";
+        context.textBaseline="middle";
+        context.fillStyle = 'red';
+        context.strokeStyle = 'white';
+        context.strokeText('x', loc[0], loc[1] - 3);
+        context.fillText('x', loc[0], loc[1] - 3);
+    }
+
+    function distance_between_ponts(a,b) {
+        /// sqrt((x2 - x1)^2 + (y2 - y1)^2 ) iterate to find the smallest one.
+        //no need to sqrt as we dont need the actual distance only the smallest number.
+        return (Math.abs((a[0]-b[0])^2) + Math.abs((a[1]-b[1])^2));
+    }
+
+    function find_closest_point(loc) {
+        var smallest = null;
+        var smallest_item = null;
+        for (var item of guitar.middle_loc) {
+            var contender = distance_between_ponts(loc,item[0]);
+//              item[0]:location  item[1]:strings item[2]:fret
+            if ((contender < smallest) || (smallest == null)) {
+                smallest = contender;
+                smallest_item = item;
+            }
+        }
+        //returns string,fret
+        return [smallest_item[1],smallest_item[2]];
+    }
+
+    function draw_finger(string,fret,text){
+        if (text == null) {text = ""}
+        var loc = guitar.lookup_middle_loc[string][fret];
+        if (text == "x") {
+            write_x(loc);
+        } else {
+            context.beginPath();
+            context.arc(loc[0], loc[1], radius, 0, 2 * Math.PI, false);
+            context.fill();
+            context.stroke();
+            write_number(loc,text);
+        }
+    }
+
+    function draw_bar(string,string2,fret,number){
+
+        if (string == null) {string = 0}
+        if (string2 == null) {string2 = 1}
+        if (fret == null) {fret = 1}
+        if (number == null) {number = ""}
+
+        if (string > string2) {
+            var tmp = string;
+            string = string2;
+            string2 = tmp;
+        }
+
+        var loc = guitar.lookup_middle_loc[string][fret];
+        var loc2 = guitar.lookup_middle_loc[string2][fret];
+
+        roundRect(context, loc2, loc, radius*2, radius,true,true);
+        var half = [((loc[0] + loc2[0]) / 2), ((loc[1] + loc2[1]) / 2)];
+        write_number(half, number);
+    }
+
+    function do_trig_math(line_start_loc, line_end_loc, pos_x) {
+        // this returns the location of where x intersects a sloping line
+        //
+        //eg do_trig_math([100,20],[500,90],300)
+        var lenx = line_end_loc[0] - line_start_loc[0];//length of x - 500-100=400
+        var leny = line_end_loc[1] - line_start_loc[1];//length of y - 90-20=70
+        var newlenx = line_end_loc[0] - pos_x;//new length of x = 500-300=200
+        var newleny = newlenx / lenx * leny;//new lenth of y = 200/400*70=35
+        var posy = line_end_loc[1] - newleny;//new coordinate of y = 55
+        return [pos_x, posy];
+
+    }
+
+    //Parse Chord
+    //
+    // Only used for incoming links.
+    // use parse own_chord for internal functions.
+    function parse_chord() {
+        var url = document.location.href;
+        if (url.indexOf('#') != -1) {
+            draw_this_chord(url.substr(url.indexOf('#') + 1));
+        } else {
+            draw_this_chord();
+        }
+    }
+
+    function draw_this_chord(chord) {
+        //The lengrth of the array descides the purpose
+        //4 - bar chords are represented by [string,string,fret,"text"]
+        //3 - fingers are [string,fret,"text"]
+        //3 - mutes are [string,fret,"x"]
+        //1 - colours are ["blue"] or ["#99f199"]
+
+        if ((chord == "") || (chord == "#") || (chord == null)) {
+            chord = '["G6"],["#FF9400"]';
+        }
+        chord = decodeURI(chord);//this is for shitty firefox
+        if (debug) {console.log(chord);}
+
+        var regx = /(\[.*?])/ig;
+        chord_array = chord.match(regx);
+        chord = $.parseJSON("[" + chord + "]");
+
+        //if the first chord is a 2 letter guitar code
+        var str = chord[0];
+        regx = /^\S{2}$/;//any 2 letter code in quotes
+        var result = str[0].toString().match(regx);
+        if (result) {
+            var result2 = $.grep(database, function(e){ return e.id == str[0]; });
+            if (result2.length == 1) {
+                if (result2[0].id != guitar.id) {
+                    guitar = result2[0];
+                    $('#neck_select option:contains(' + guitar.name + ')').prop('selected', true)
+                    draw_image(); //we have to re-load the image which will call this again.
+                    return;
+                }
+            }
+        }
+
+        //update link
+        var anchor = "#" + chord_array.toString();
+        $( "#link" ).attr('href',anchor);
+        location.href = anchor;
+
+
+
+        //draw the chord
+        context.clearRect(0,0,canvas_width,canvas_height);//this is a little redundant as it will just draw the fret board over it again
+        context.drawImage(imageObj, canvas_padding_x, canvas_padding_y);
+        draw_numbers();
+        var colour = default_colour;
+        context.beginPath();
+
+
+
+        $.each(chord, function(idx, obj) {
+            switch (obj.length) {
+                case 4:
+                    context.lineWidth = 5;
+                    context.strokeStyle = "white";
+                    context.fillStyle = colour;
+                    draw_bar(obj[0],obj[1],obj[2],obj[3]);
+                    break;
+
+                case 3:
+                    context.lineWidth = 2;
+                    context.strokeStyle = "white";
+                    context.fillStyle = colour;
+                    draw_finger(obj[0],obj[1],obj[2]);
+                    break;
+
+                case 1:
+                    var str = obj[0];
+                    //if it is a colour
+                    var regx = /#(?:[0-9a-fA-F]{3}){1,2}/i;
+                    if (str.match(regx)) {
+                        colour = str;
+                        break;
+                    }
+                    //otherwise it is probably a guitar code.
+                    break;
+                default:
+                    alert("bad args" + obj.length);
+            }
+        });
+    }
+
+    function load_database() {
+        var options = $("#neck_select");
+        options.empty();
+        $.each(database, function(idx, obj) {
+            options.append($("<option />").text(obj.name));
+        });
+    }
+
+    function draw_image() {
+        imageObj.src = guitar.filename;
+        imageObj.onload = function() {
+            canvas_width = this.width + canvas_padding_x;
+            canvas_height = this.height + canvas_padding_y;
+            canvas.width = canvas_width;
+            canvas.height = canvas_height;
+            $("#myCanvas").width(canvas_width).height(canvas_height);
+            draw_this_chord(chord_array.toString());//draw chord from memory
+//            debug_draw_all_middle_locs();
+        };
+    }
+
+    function pad_string(string,x,y) {
+        var tmp_str=[[0,0],[0,0]];
+        tmp_str[0][0] = string[0][0] + x;
+        tmp_str[0][1] = string[0][1] + y;
+        tmp_str[1][0] = string[1][0] + x;
+        tmp_str[1][1] = string[1][1] + y;
+        return tmp_str;
+    }
+
+    //gen_all_middle_locs assumes that you have already padded your strings.
+    function gen_all_middle_locs() {
+        $.each(database, function(idx, gtr) {
+            //strings are pairs of points e.g string = [[123,123],[123,123]]
+            $.each(gtr.strings, function(string_idx, string) {
+                gtr.lookup_middle_loc[string_idx+1] = {};
+                $.each(gtr.frets, function(fret_idx, fret) {
+                    if (fret_idx != 0) {
+                        var fret_middle = (fret + gtr.frets[fret_idx-1])/2;
+                        var new_coord = do_trig_math(string[1], string[0], fret_middle);
+                        gtr.middle_loc.push([new_coord,string_idx+1,fret_idx]);
+                        gtr.lookup_middle_loc[string_idx+1][fret_idx] = new_coord;
+                    }
+                });
+            });
+        });
+    }
+
+    //pad_all_strings_and_frets: go through the database and pad all the strings and frets
+    function pad_all_strings_and_frets(x_pad,y_pad) {
+        $.each(database, function(idx, gtr) {
+            $.each(gtr.frets, function(fret_idx, fret) {
+                gtr.frets[fret_idx] = fret + x_pad;
+            });
+            $.each(gtr.strings, function(string_idx, string) {
+                gtr.strings[string_idx]= pad_string(string,x_pad,y_pad);
+            });
+            //add the fret text lines
+            gtr.fret_text_line = pad_string(gtr.top_of_neck,x_pad,y_pad/2);
+        });
+    }
+
+    function draw_numbers () {
+        context.font = 'bold 13pt Arial';
+        context.fillStyle = "black";
+        context.textAlign="center";
+        context.textBaseline="middle";
+        $.each(guitar.frets, function(fret_idx, fret) {
+            if (fret_idx != 0) {
+                var fret_middle = (fret + guitar.frets[fret_idx-1])/2;
+                var loc = do_trig_math(guitar.fret_text_line[1], guitar.fret_text_line[0], fret_middle);
+                context.fillText(fret_idx.toString(), loc[0], loc[1]);
+            }
+        });
+        $.each(guitar.strings, function(string_idx, string) {
+            context.fillText((string_idx+1).toString(), string[0][0]/2, string[0][1]);
+        });
+    }
+
+    function debug_draw_all_middle_locs() {
+        $.each(guitar.middle_loc, function(loc_idx, middle_loc) {
+            //middle_loc = [[123,456],1,0] [location],string,fret
+            var loc = middle_loc[0];
+            context.fillStyle = 'red';
+            context.strokeStyle = 'white';
+            context.beginPath();
+            context.arc(loc[0], loc[1], radius, 0, 2 * Math.PI, false);
+            context.fill();
+            context.stroke();
+            write_number(loc,loc_idx);
+        });
+
+    }
+
+
+    var canvas_padding_x = 25;
+    var canvas_padding_y = 25;
+    var canvas_width = 0;
+    var canvas_height = 0;
+    var imageObj = new Image();
+
+    pad_all_strings_and_frets(canvas_padding_x,canvas_padding_y); //Pad the image first
+    gen_all_middle_locs(); //then generate the middle locations after the padding is done.
+    load_database();
+    draw_image();
+    parse_chord();
+
+
+
+
+
+</script>
+</body>
+</html>
