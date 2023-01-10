@@ -1,5 +1,6 @@
 # README #
 
+![Screenshot](/images/screenshot.jpg?raw=true "Screenshot.")
 
 ### What is this repository for? ###
 
@@ -9,10 +10,7 @@ Whoever wants to download a program for displaying guitar chords. Good for teach
 
 * Version
 
-Version 1 - Good e-nuff.
-
-
-![Screenshot](/images/screenshot.jpg?raw=true "Screenshot.")
+Version 1
 
 ### How do I get set up? ###
 
