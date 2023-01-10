@@ -12,7 +12,7 @@ Whoever wants to download a program for displaying guitar chords. Good for teach
 Version 1 - Good e-nuff.
 
 
-![Screenshot](/img/screenshot.jpg?raw=true "Screenshot.")
+![Screenshot](/images/screenshot.jpg?raw=true "Screenshot.")
 
 ### How do I get set up? ###
 
